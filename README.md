@@ -1,6 +1,11 @@
 ### cowsay-mastodon-bot
 My bot for TheDevMinerTV at botsin.space 
 
+## Features
+
+we got:
+`/cowsay TEXT`, `/cowthink TEXT`, `/fortune TEXT`, `/fortune | cowsay`, `/fortune | cowthink`, `/figlet TEXT` and `/toilet TEXT`!
+
 # CONFIGURATION
 Just supply a .env file with content like this:
 

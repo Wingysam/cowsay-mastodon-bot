@@ -84,19 +84,19 @@ function listen() {
                 console.log(JSON.stringify(cmdConvert));
                 
                 if (cmd === "cowsay") {
-                    
+                    cmdConvert = cmd  + " " + cmdConvert;
                     executeCMD("./cmd2png.sh", [cmdConvert]);                    
                     console.log("Executed!!!");
                     tootImage(__dirname + "/out.png", `@${msg.data.account.acct} Here is your cowsay!`, deleteFiles);
                     
                 } else if (cmd === "cowthink") {
-                    
+                    cmdConvert = cmd  + " " + cmdConvert;
                     executeCMD("./cmd2png.sh", [cmdConvert]);                    
                     console.log("Executed!!!");
                     tootImage(__dirname + "/out.png", `@${msg.data.account.acct} Here is your cowthink!`, deleteFiles);
                     
                 } else if (cmd === "figlet") {
-                    
+                    cmdConvert = cmd  + " " + cmdConvert;
                     executeCMD("./cmd2png.sh", [cmdConvert]);                    
                     console.log("Executed!!!");
                     tootImage(__dirname + "/out.png", `@${msg.data.account.acct} Here is your figlet!`, deleteFiles);
@@ -106,7 +106,7 @@ function listen() {
                     if (arr[1] === "|" && (arr[2] === "cowsay" || arr[2] === "cowthink")) {
                         
                         var output = executeCMD("fortune");
-
+                        
                         if (arr[2] === "cowsay") {
                             executeCMD("./cmd2png.sh", ["cowsay " + output]); 
                             console.log("Chose cowsay!");                  
@@ -125,7 +125,7 @@ function listen() {
                     console.log("Executed!!!");
                     
                 } else if (cmd === "toilet") {
-                    
+                    cmdConvert = cmd  + " " + cmdConvert;
                     executeCMD("./cmd2png.sh", [cmdConvert]);                    
                     console.log("Executed!!!");
                     tootImage(__dirname + "/out.png", `@${msg.data.account.acct} Here is your toilet (paper)!`, deleteFiles);
