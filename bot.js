@@ -87,15 +87,13 @@ function listen() {
                     console.log("Executed!!!");
                     tootImage(__dirname + "/out.png", `@${msg.data.account.acct} Here is your cowthink!`, deleteFiles);
                     
-                }  else if (cmd === "figlet") {
+                } else if (cmd === "figlet") {
 
                     executeCMD("./cmd2png.sh", [cmdConvert]);                    
                     console.log("Executed!!!");
                     tootImage(__dirname + "/out.png", `@${msg.data.account.acct} Here is your figlet!`, deleteFiles);
                     
-                }
-                
-                else {
+                } else {
                     console.log(`${msg.data.account.acct} mentioned with ${cmdArgs}`);
                 }
                 
