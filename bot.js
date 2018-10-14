@@ -103,7 +103,6 @@ function listen() {
                     
                 } else if (cmd === "fortune") {
                     var arr = cmdConvert.split(" ");
-                    console.log(JSON.stringify(arr));
                     if (arr[1] === "|" && (arr[2] === "cowsay" || arr[2] === "cowthink")) {
                         
                         var output = executeCMD("fortune");
@@ -115,16 +114,15 @@ function listen() {
                             executeCMD("./cmd2png.sh", ["cowthink " + output]);
                             console.log("Chose cowthink!");
                         }
-                        console.log("Executed!!!");
                         tootImage(__dirname + "/out.png", `@${msg.data.account.acct} Here is your fortune with some milk!`, deleteFiles);
                         
                     } else {
                         
                         executeCMD("./cmd2png.sh", [cmd]);                    
-                        console.log("Executed!!!");
                         tootImage(__dirname + "/out.png", `@${msg.data.account.acct} Here is your fortune!`, deleteFiles);
                         
                     }
+                    console.log("Executed!!!");
                     
                 } else if (cmd === "toilet") {
                     
