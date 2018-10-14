@@ -81,13 +81,21 @@ function listen() {
                     console.log("Executed!!!");
                     tootImage(__dirname + "/out.png", `@${msg.data.account.acct} Here is your cowsay!`, deleteFiles);
                     
-                } else if ( cmd === "cowthink") {
+                } else if (cmd === "cowthink") {
                      
                     executeCMD("./cmd2png.sh", [cmdConvert]);                    
                     console.log("Executed!!!");
                     tootImage(__dirname + "/out.png", `@${msg.data.account.acct} Here is your cowthink!`, deleteFiles);
                     
-                } else {
+                }  else if (cmd === "figlet") {
+
+                    executeCMD("./cmd2png.sh", [cmdConvert]);                    
+                    console.log("Executed!!!");
+                    tootImage(__dirname + "/out.png", `@${msg.data.account.acct} Here is your figlet!`, deleteFiles);
+                    
+                }
+                
+                else {
                     console.log(`${msg.data.account.acct} mentioned with ${cmdArgs}`);
                 }
                 
