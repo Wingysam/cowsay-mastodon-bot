@@ -36,17 +36,17 @@ function tootImage(png, text, delFiles) {
         const id = resp.data.id;
         M.post('statuses', { status: text, media_ids: [id] })
     }).then(function() {
-        console.log("Done tooting!")
+        console.log("Done tooting!");
         setTimeout(delFiles, 2500);
     });
 }
 
-function search(nameKey, myArray){
-    for (var i=0; i < myArray.length; i++) {
-        if (myArray[i].name === nameKey) {
-            return true;
-        }
+function deleteFiles() {
+    console.log("Deleting leftover files. . .");
+    if (fs.existsSync(__dirname + "/out.png")){
+        fs.unlinkSync(__dirname + "/out.png");      
     }
+    console.log("Deleted leftover files successfully!");
 }
 
 function executeCMD(cmd, args) {
@@ -54,6 +54,9 @@ function executeCMD(cmd, args) {
 }
 
 function listen() {
+    var cmdArgs = 0;
+    var cmd = "";
+    var cmdConvert = "";
     
     const listener = M.stream('streaming/user');
     
@@ -61,30 +64,30 @@ function listen() {
     listener.on('error', err => console.log(err));
     listener.on('message', msg => {
         
-        fs.writeFileSync("json.json", JSON.stringify(msg));
-        
         if (msg.event === 'notification') {
             if (msg.data.type === 'mention') {
                 
-                var cmdArgs = msg.data.status.content.split("</span>");
-                var cmdArgs = cmdArgs[2];
-                var cmd = cmdArgs.substring(2, 8);
-                var args = cmdArgs.substring(9, (cmdArgs.length - 4)).split(" ");
+                cmdArgs = msg.data.status.content.split("</span>");
+                cmdArgs = cmdArgs[2];
+                cmd = cmdArgs.substring(2, 8);
+                cmdConvert = cmdArgs.substring(2, cmdArgs.length - 4);
                 
                 console.log(`@${msg.data.account.acct} mentioned me with ${cmdArgs}HHH`);
-                console.log(cmd + " - " + JSON.stringify(args));
+                console.log(JSON.stringify(cmdConvert));
                 
                 if (cmd === "cowsay") {
-                    var defaultMSG = `Output from ${cmd} ${args}`;
                     
-                    var output = executeCMD("cowsay", args);                    
-                    console.log("Executed!!!\n\nOutput was \n" + output + "\nNumber of characters " + output.length);
-
-                    toot(`@${msg.data.account.acct} Here is your cowsay!\n${output}`);
-
+                    executeCMD("./cmd2png.sh", [cmdConvert]);                    
+                    console.log("Executed!!!");
+                    tootImage(__dirname + "/out.png", `@${msg.data.account.acct} Here is your cowsay!`, deleteFiles);
+                    
                 } else {
-                    console.log(`${msg.data.account.acct} mentioned with ${res}`);
+                    console.log(`${msg.data.account.acct} mentioned with ${cmdArgs}`);
                 }
+                
+                cmdArgs = 0;
+                cmd = "";
+                cmdConvert = "";
             }   
         }
     });
