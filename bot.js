@@ -74,12 +74,13 @@ function listen() {
                 cmdArgs = cmdArgs.split(" ");
                 
                 cmd = cmdArgs[0].substring(1);
+                cmdConvert = " ";
                 for (let i = 1; i < cmdArgs.length; i++) {
                     cmdConvert = cmdConvert + " " + cmdArgs[i];
                 }
                 cmdConvert = cmdConvert.substring(1, cmdConvert.length - 4);
                 
-                console.log(`@${msg.data.account.acct} mentioned me with ${cmdArgs}HHH`);
+                console.log(`@${msg.data.account.acct} mentioned me with ${cmdArgs[0]} ${cmdArgs[1]} ${cmdArgs[2]}HHH`);
                 console.log(JSON.stringify(cmdConvert));
                 
                 if (cmd === "cowsay") {
@@ -101,21 +102,30 @@ function listen() {
                     tootImage(__dirname + "/out.png", `@${msg.data.account.acct} Here is your figlet!`, deleteFiles);
                     
                 } else if (cmd === "fortune") {
-                    
-                    if (cmdArgs[1] === "|" && (cmdArgs[2] === "cowsay" || cmdArgs[2] === "cowthink")) {
+                    var arr = cmdConvert.split(" ");
+                    console.log(JSON.stringify(arr));
+                    if (arr[1] === "|" && (arr[2] === "cowsay" || arr[2] === "cowthink")) {
                         
-                        executeCMD("./cmd2png.sh", [cmdArgs[1] + " " + cmdArgs[2]]);                    
+                        var output = executeCMD("fortune");
+
+                        if (arr[2] === "cowsay") {
+                            executeCMD("./cmd2png.sh", ["cowsay " + output]); 
+                            console.log("Chose cowsay!");                  
+                        } else {
+                            executeCMD("./cmd2png.sh", ["cowthink " + output]);
+                            console.log("Chose cowthink!");
+                        }
                         console.log("Executed!!!");
                         tootImage(__dirname + "/out.png", `@${msg.data.account.acct} Here is your fortune with some milk!`, deleteFiles);
-                    
+                        
                     } else {
-                    
+                        
                         executeCMD("./cmd2png.sh", [cmd]);                    
                         console.log("Executed!!!");
                         tootImage(__dirname + "/out.png", `@${msg.data.account.acct} Here is your fortune!`, deleteFiles);
-                    
+                        
                     }
-
+                    
                 } else if (cmd === "toilet") {
                     
                     executeCMD("./cmd2png.sh", [cmdConvert]);                    
