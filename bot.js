@@ -68,7 +68,7 @@ function listen() {
             if (msg.data.type === 'mention') {
                 fs.writeFileSync("data.json", JSON.stringify(msg, null, 2));
                 
-                cmdArgs = msg.status.content.split("</span>");
+                cmdArgs = msg.data.status.content.split("</span>");
                 cmdArgs = cmdArgs[2];
                 cmdArgs = cmdArgs.substring(1);
                 cmdArgs = cmdArgs.split(" ");
