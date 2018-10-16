@@ -2,7 +2,6 @@ const Mastodon = require('mastodon-api');
 const path = require('path');
 const env = require('dotenv').config();
 const fs = require('fs');
-const glob = require('glob');
 
 
 var instance = "https://botsin.space/api/v1/";
